@@ -7,11 +7,12 @@ global.__rootDir = __dirname;
 app.use(cors());
 
 app.use(express.static(path.join(__dirname, "/client/public")));
+app.use(express.static(path.join(__dirname, "/client/build")));
 app.get("/", (req, res) => {
-  res.sendFile(`${__dirname}/client/public/index.html`);
+  res.sendFile(`${__dirname}/client/build/index.html`);
 });
 app.get("*", (req, res) => {
-  res.sendFile(`${__dirname}/client/public/index.html`);
+  res.sendFile(`${__dirname}/client/build/index.html`);
 });
 
 // set port, listen for requests

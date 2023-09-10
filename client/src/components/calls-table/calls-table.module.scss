@@ -1,0 +1,19 @@
+.callsTable {
+    display: grid;
+    grid-template-columns: repeat(8, auto);
+    grid-row-gap: 5px;
+
+    &__heading {
+        font-size: 14px;
+        color: #393939;
+        padding: 8px;
+    }
+
+    &__item {
+        background: #ccc;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        padding: 8px;
+    }
+}

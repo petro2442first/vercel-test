@@ -1,0 +1,134 @@
+.sidebar {
+    min-width: 300px;
+    max-width: 300px;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    padding: 40px 0;
+    background: #fff;
+    position: sticky;
+
+    &__logo {
+        display: flex;
+        align-items: center;
+        user-select: none;
+        align-self: center;
+        margin-bottom: 35px;
+
+        img {
+            width: 50px;
+            margin-right: 10px;
+        }
+
+        p {
+            font-size: 26px;
+        }
+    }
+
+    &__menu {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__iconContainer {
+        width: 22px;
+        height: 22px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 25px;
+        margin-left: 30px;
+    }
+
+    &__link {
+        color: #06152B;
+        font-size: 18px;
+        // margin-bottom: 35px;
+        text-decoration: none;
+        position: relative;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        border-left: 3px solid transparent;
+        transition: 0.1s transform;
+
+        i {
+            font-size: 20px;
+        }
+
+        &, i {
+            color: #434343;
+        }
+
+        &:hover {
+            transform: translateX(2px);
+            border-left: 3px solid orange;
+        }
+
+        &:before {
+            content: '';
+            display: block;
+            position: absolute;
+            width: 60px;
+            height: 100%;
+            background: rgb(255 117 124 / 8%);
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            transform: translateX(-60px);
+            transition: 0.2s transform;
+        }
+
+        &.active {
+            & {
+                // color: rgb(228, 122, 1);
+                font-weight: 600;
+
+                &::before {
+                    transform: translateX(0);
+                }
+            }
+
+            i {
+                color: rgb(217 108 56);
+            }
+        }
+    }
+
+    &__footer {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 40px 40px 0;
+        margin-top: auto;
+
+        &_icon {
+            width: 50px;
+            height: 35px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #e7e7e7;
+            margin-right: 10px;
+        }
+
+        &_userinfo {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+
+            span {
+                &:nth-child(2) {
+                    font-size: 10px;
+                    color: #ccc;
+                }
+            }
+        }
+
+        &_logout {
+            margin-left: auto;
+            cursor: pointer;
+        }
+    }
+}

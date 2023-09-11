@@ -1,74 +1,34 @@
-const TelegramBot = require("node-telegram-bot-api");
-
-// replace the value below with the Telegram token you receive from @BotFather
-const token = "6673876379:AAHBMnmRynznzyJns1tEhSc2SU56XBFQkwM";
+const { Telegraf, Markup } = require("telegraf");
+const { message } = require("telegraf/filters");
+const config = require("../config/telegram.config");
 
 module.exports = () => {
-  const bot = new TelegramBot(token, { polling: true });
+  const bot = new Telegraf(config.token);
 
-  // const btn = new MenuButtonDefault();
-  // Matches "/echo [whatever]"
+  const replyKeyboard = Markup.keyboard([
+    [config.text.buttons.balance, config.text.buttons.deposit],
+    [config.text.buttons.statistics],
+  ]).resize();
+  bot.command("quit", async (ctx) => await ctx.leaveChat());
 
-  bot.onText(/\/echo (.+)/, (msg, match) => {
-    // 'msg' is the received Message from Telegram
-    // 'match' is the result of executing the regexp above on the text content
-    // of the message
+  bot.hears(config.text.buttons.balance, async (ctx) => {
+    await ctx.reply(config.text.responses.balance(127));
+  });
+  bot.on("callback_query", async (ctx) => await ctx.answerCbQuery());
 
-    const chatId = msg.chat.id;
-    const resp = match[1]; // the captured "whatever"
-
-    // send back the matched "whatever" to the chat
-    bot.sendMessage(chatId, resp + " " + chatId);
+  bot.on("inline_query", async (ctx) => {
+    const result = [];
+    console.log(ctx);
+    await ctx.answerInlineQuery(result);
   });
 
-  bot.onText(/\/start/, (msg, match) => {
-    // 'msg' is the received Message from Telegram
-    // 'match' is the result of executing the regexp above on the text content
-    // of the message
-
-    const chatId = msg.chat.id;
-    const resp = match[1]; // the captured "whatever"
-
-    // send back the matched "whatever" to the chat
-    bot.setChatMenuButton(chatId);
-
-    const options = {
-      reply_markup: JSON.stringify({
-        inline_keyboard: [
-          [{ text: "Some button text 1", callback_data: "1" }],
-          [{ text: "Some button text 2", callback_data: "2" }],
-          [{ text: "Some button text 3", callback_data: "3" }],
-        ],
-      }),
-    };
-
-    bot.sendMessage(chatId, "Starting bot...", options);
+  bot.use(async (ctx) => {
+    await ctx.reply("Start", replyKeyboard);
   });
 
-  bot.on("callback_query", (callbackQuery) => {
-    const action = callbackQuery.data;
-    const msg = callbackQuery.message;
-    const opts = {
-      chat_id: msg.chat.id,
-      message_id: msg.message_id,
-    };
-    let text;
+  bot.launch();
 
-    if (action === "1") {
-      text = "You hit button 1";
-    } else if (action === "2") {
-      text = "2";
-    } else {
-      text = "3";
-    }
-
-    bot.editMessageText(text, opts);
-  });
-
-  // bot.on("message", (msg) => {
-  //   const chatId = msg.chat.id;
-
-  //   // send a message to the chat acknowledging receipt of their message
-  //   bot.sendMessage(chatId, "Received your message");
-  // });
+  // Enable graceful stop
+  process.once("SIGINT", () => bot.stop("SIGINT"));
+  process.once("SIGTERM", () => bot.stop("SIGTERM"));
 };

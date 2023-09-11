@@ -1,12 +1,14 @@
 .callsTable {
   display: grid;
-  grid-template-columns: repeat(8, auto);
+  grid-template-columns: repeat(7, auto);
   grid-row-gap: 5px;
 
   &__row {
     display: contents;
 
     > div {
+      font-size: 14px;  
+
         &:first-child {
             border-top-left-radius: 5px;
             border-bottom-left-radius: 5px;
@@ -18,15 +20,15 @@
         }
     }
 
-    &.success {
+    &.answered {
         > div {
             background: #2bff0029;
         }
     }
 
-    &.failed {
+    &.pending {
         > div {
-            background: #ff000017;
+            background: rgb(255 177 0 / 19%);
         }
     }
   }

@@ -51,7 +51,7 @@ export const Sidebar = () => {
                 </NavLink>
                 
                 <NavLink 
-                    to={'/3'} 
+                    to={'/active-calls'} 
                     className={({ isActive }) => cx(styles.sidebar__link, {
                         active: isActive
                     })}

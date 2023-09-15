@@ -1,0 +1,55 @@
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    min-width: 150px;
+    min-height: 50px;
+    padding: 5px 25px 5px 10px;
+    border-radius: 4px;
+    background: #fff;
+
+    display: flex;
+
+    &.success {
+        border: 2px solid green;
+
+        .notification-icon { color: green }
+    }
+
+    &.error {
+        border: 2px solid red;
+
+        .notification-icon { color: red }
+    }
+
+    &.info {
+        border: 2px solid blue;
+
+        .notification-icon { color: blue }
+    }
+
+    .notification-icon {
+        margin-top: 3px;
+    }
+
+    &__content {
+        margin-left: 10px;
+    }
+
+    &__title {
+        font-size: 15px;
+        margin-bottom: 0;
+    }
+
+    &__description {
+        font-size: 14px;
+    }
+
+    &__close {
+        position: absolute;
+        right: 5px;
+        top: 2px;
+        color: #ccc;
+        cursor: pointer;
+    }
+}

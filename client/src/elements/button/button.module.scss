@@ -1,0 +1,22 @@
+.button {
+    padding: 10px 14px;
+    border: 0;
+    outline: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #ffecc8;
+    border: 1px solid orange;
+    font-weight: normal;
+
+    &:hover {
+        background: #ffc24e;
+    }
+
+    &.primary {
+        background: orange;
+    }
+
+    &.primary-pink {
+        background: #ff7e71;
+    }
+}

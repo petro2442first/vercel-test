@@ -1,8 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "@/App.jsx";
-import { LoginPage, HomePage, CallsPage, ActiveCallsPage } from "@pages";
-import { DefaultPage } from "../pages/defaul-page/defaul-page";
-import { Dashboard } from "../components/dashboard/dashboard";
+import { LoginPage, HomePage, CallsPage, ActiveCallsPage, DefaultPage, NewPaymentPage } from "../pages";
 
 export const router = createBrowserRouter([
     {   
@@ -18,6 +15,14 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/active-calls",
+                element: <ActiveCallsPage />,
+            },
+            {
+                path: "/new-payment",
+                element: <NewPaymentPage />,
+            },
+            {
+                path: "/payments-history",
                 element: <ActiveCallsPage />,
             },
         ]

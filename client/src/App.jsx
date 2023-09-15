@@ -1,10 +1,13 @@
 import './App.css';
+import { NotificationsProvider } from './providers/notification-provider';
 
 function App() {
   return (
-    <div className="App">
-      Homepage
-    </div>
+    <NotificationsProvider>
+      <div className="App">
+        Homepage
+      </div>
+    </NotificationsProvider>
   );
 }
 

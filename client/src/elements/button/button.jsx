@@ -1,9 +1,15 @@
-import './button.scss';
+import classNames from 'classnames/bind';
+import styles from './button.module.scss';
+
+const cx = classNames.bind(styles);
 
 export const Button = ({
-    type = 'primary',
+    type,
     isLink,
-    children
+    children,
+    className
 }) => {
-    return isLink ? <a href="#" className="button">{children}</a> : <button className="button">{children}</button>
+    return isLink
+        ? <a href="#" className={cx(type, styles.button, className)}>{children}</a> 
+        : <button className={cx(type, styles.button, className)}>{children}</button>;
 }

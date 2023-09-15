@@ -1,0 +1,25 @@
+.input {
+    background-color: #fff;
+    font-size: 16px;
+    padding: 15px 10px;
+    border-radius: 5px;
+    border: 0;
+    outline: 0;
+
+    &.primary {
+        border: 2px solid orange;
+    }
+
+    &.secondary {
+        background-color: #F1F4FA;
+    }
+}
+
+.label_input {
+    margin-bottom: 20px;
+    display: block;
+
+    p {
+        margin-bottom: 10px;
+    }
+}

@@ -1,5 +1,5 @@
 import logo from '@assets/images/logo@2x.png';
-import { SignInForm } from '@components/sign-in-form/sign-in-form';
+import { SignInForm } from '../../components/sign-in-form/sign-in-form';
 import callcentergif from '@assets/images/callcenter.gif';
 
 import './login.scss';

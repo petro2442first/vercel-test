@@ -1,14 +1,20 @@
-import './input.scss';
+import classNames from 'classnames/bind';
+import styles from './input.module.scss';
+
+const cx = classNames.bind(styles);
 
 export const Input = ({
     type,
     placeholder,
-    label
+    label,
+    style,
+    ...props
 }) => {
+
     return label ? (
-        <label className="label-input">
+        <label className={styles.label_input}>
             <p>{label}</p>
-            <input className="input" type={type} placeholder={placeholder} />
+            <input className={cx(style, styles.input)} type={type} placeholder={placeholder} {...props}/>
         </label>
-    ) : <input className="input" type={type} placeholder={placeholder} />;
+    ) : <input className={cx(style, styles.input)} type={type} placeholder={placeholder} {...props}/>;
 }

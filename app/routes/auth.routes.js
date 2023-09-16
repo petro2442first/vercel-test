@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const { check, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 const config = require("../config/auth.config.js");
-export const AuthRouter = Router();
+const AuthRouter = Router();
 
 AuthRouter.post(
   "/register",
@@ -104,3 +104,5 @@ AuthRouter.post(
     }
   }
 );
+
+module.exports = AuthRouter;

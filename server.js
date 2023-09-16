@@ -1,7 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
-const { AuthRouter } = require("./app/routes/auth.routes");
+const mongoose = require("mongoose");
+const dbConfig = require("./app/config/db.config.js");
+const AuthRouter = require("./app/routes/auth.routes.js");
 
 const app = express();
 
@@ -25,7 +27,7 @@ app.use("/api/auth", AuthRouter);
 
 async function start() {
   try {
-    await mongoose.connect(config.get("db_connect"), {
+    await mongoose.connect(dbConfig.db_connect, {
       useUnifiedTopology: true,
     });
     app.listen(PORT, () =>

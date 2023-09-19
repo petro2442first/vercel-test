@@ -7,9 +7,10 @@ export const Button = ({
     type,
     isLink,
     children,
-    className
+    className,
+    ...props
 }) => {
     return isLink
-        ? <a href="#" className={cx(type, styles.button, className)}>{children}</a> 
-        : <button className={cx(type, styles.button, className)}>{children}</button>;
+        ? <a href="#" className={cx(type, styles.button, className)} {...props}>{children}</a> 
+        : <button className={cx(type, styles.button, className)} {...props}>{children}</button>;
 }

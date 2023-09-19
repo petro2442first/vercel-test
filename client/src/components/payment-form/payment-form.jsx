@@ -9,7 +9,7 @@ import qrcode from '../../assets/images/qrusdt.jpg';
 import styles from './payment-form.module.scss';
 
 export const PaymentForm = () => {
-    const [step, setActiveStep] = useState(1);
+    const [step, setActiveStep] = useState(0);
 
     const isFirstStep = step === 0;
     const isSecondStep = step === 1;
@@ -43,7 +43,7 @@ export const PaymentForm = () => {
                     <div className={styles.payment_step_1}>
                         <Input label="Укажите сумму пополнения:" style="primary" placeholder="$100"/>
 
-                        <Button type="primary">Далее</Button>
+                        <Button type="primary" onClick={() => setActiveStep(1)}>Далее</Button>
                     </div>
                 )
             }
@@ -76,7 +76,7 @@ export const PaymentForm = () => {
                             </div>
                         </div>
 
-                        <Button>Назад</Button>
+                        <Button onClick={() => setActiveStep(0)}>Назад</Button>
                     </div>
                 )
             }

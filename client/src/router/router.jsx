@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { LoginPage, HomePage, CallsPage, ActiveCallsPage, DefaultPage, NewPaymentPage } from "../pages";
+import { PaymentsHistory } from "../pages/payments-history/payments-history";
 
 export const router = createBrowserRouter([
     {   
@@ -23,7 +24,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/payments-history",
-                element: <ActiveCallsPage />,
+                element: <PaymentsHistory />,
             },
         ]
     },

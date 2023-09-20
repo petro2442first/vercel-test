@@ -1,15 +1,18 @@
-require("dotenv").config();
+import dotenv from "dotenv";
+import express from "express";
+import cors from "cors";
+import path from "path";
+import { fileURLToPath } from 'url';
+import router from "./app/routes";
 
-const express = require("express");
-const cors = require("cors");
-const path = require("path");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+dotenv.config();
 
 const app = express();
-const router = require("./app/routes");
 
 const defaultPort = 8888;
-
-global.__rootDir = __dirname; 
 
 app.use(cors());
 

@@ -1,4 +1,4 @@
-const express = require("express");
+import express from "express";
 
 const router = express.Router();
 
@@ -6,4 +6,4 @@ router.route('/auth').get(async function(req, res) {
     return res.send('auth');
 });
 
-module.exports = router;
+export default router;

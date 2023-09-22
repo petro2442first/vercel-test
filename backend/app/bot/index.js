@@ -1,8 +1,8 @@
-const { Telegraf, Markup } = require("telegraf");
-const { message } = require("telegraf/filters");
-const config = require("../config/telegram.config");
+import { Telegraf, Markup } from "telegraf";
+import { message } from "telegraf/filters";
+import config from "../config/telegram.config";
 
-module.exports = () => {
+const bot = () => {
   const bot = new Telegraf(config.token);
 
   const replyKeyboard = Markup.keyboard([
@@ -32,3 +32,4 @@ module.exports = () => {
   process.once("SIGINT", () => bot.stop("SIGINT"));
   process.once("SIGTERM", () => bot.stop("SIGTERM"));
 };
+export default bot;

@@ -19,7 +19,6 @@ const app = express();
 const defaultPort = 8888;
 const PORT = process.env.PORT || defaultPort;
 
-
 app.use(cors());
 
 app.use(express.static(path.join(__dirname, "../client/build")));

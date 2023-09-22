@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   user: "rocketcall_db",
   password: "2gq2bazcTCAiN8Ei",
   db_connect:

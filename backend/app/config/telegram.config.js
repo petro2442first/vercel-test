@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   token: "6673876379:AAHBMnmRynznzyJns1tEhSc2SU56XBFQkwM",
   text: {
     buttons: {

@@ -9,6 +9,7 @@ import mongoose from "mongoose";
 import tgBot from "./app/bot";
 import router from "./app/routes";
 import dbConfig from "./app/config/db.config";
+import PaymentController from "./app/controllers/payment.controller";
 
 const jsonParser = bodyParser.json();
 
@@ -36,12 +37,14 @@ tgBot();
 
 async function start() {
   try {
-    await mongoose.connect(dbConfig.db_connect, {
-      useUnifiedTopology: true,
+    // await mongoose.connect(dbConfig.db_connect, {
+    //   useUnifiedTopology: true,
+    // });
+    app.listen(PORT, () => {
+      console.log(`App has been started on port ${PORT}...`);
+
+      PaymentController.getAddress();
     });
-    app.listen(PORT, () =>
-      console.log(`App has been started on port ${PORT}...`)
-    );
   } catch (err) {
     console.error("Database connect error: ", err.message);
     process.exit(1);

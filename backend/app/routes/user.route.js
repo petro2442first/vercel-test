@@ -8,7 +8,7 @@ router.route("/login").post(async function (request, response) {
     body: { username, password },
   } = request;
   const morRequest = await MorApi.login({ username, password });
-
+  console.log(morRequest);
   return response.send(morRequest);
 });
 

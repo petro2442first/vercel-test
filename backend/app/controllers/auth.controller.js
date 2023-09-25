@@ -68,6 +68,7 @@ export default class AuthController {
           .status(400)
           .json({ message: "Incorrect password or email, please, try again" });
       }
+
       const token = jwt.sign(
         {
           userId: user.id,

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { loginUser } from "../actions/user.actions";
 // import { fetchUserAuthStatus, loginUser } from "../actions/user-actions";
 
 const initialState = {
@@ -31,7 +32,11 @@ export const userSlice = createSlice({
             state.notifications = state.notifications.filter(notification => notification.id !== action.payload);
         },
     },
-    extraReducers: {}
+    extraReducers: (builder) => {
+        builder.addCase(loginUser, (state, action) => {
+            console.log(action);
+        })
+    }
 })
 
 export const { showNotification, hideNotification } = userSlice.actions;

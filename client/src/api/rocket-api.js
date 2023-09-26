@@ -1,14 +1,17 @@
 const endpoints = [];
 
 export class RocketApi {
-    static async loginUser({ login, password }) {
-        const response = await fetch('http://127.0.0.1:8888/api/auth', {
+    static async loginUser({ username, password }) {
+        const response = await fetch('http://127.0.0.1:8812/api/auth/login', {
             method: 'POST',
             body: JSON.stringify({
-                login, password
-            })
+                username, password
+            }),
+            headers: {
+                'Content-type': 'application/json'
+            }
         });
-        const data = await response.text();
+        const data = await response.json();
 
         return data;
     }

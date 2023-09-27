@@ -3,7 +3,7 @@ import { loginUser } from "../actions/user.actions";
 // import { fetchUserAuthStatus, loginUser } from "../actions/user-actions";
 
 const initialState = {
-    authData: {
+    user: {
         isLogged: false
     },
     notifications: [
@@ -17,15 +17,17 @@ const initialState = {
     ]
 }
 
+const defaultNotificationVisibleTime = 51;
+
 export const userSlice = createSlice({
     name: 'user-slice',
     initialState,
     reducers: {
         showNotification: (state, action) => {
             state.notifications.push({
-                time: 50,
-                ...action.payload,
-                id: Date.now()
+                id: Date.now(),
+                time: defaultNotificationVisibleTime,
+                ...action.payload
             });
         },
         hideNotification: (state, action) => {
@@ -33,8 +35,8 @@ export const userSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(loginUser, (state, action) => {
-            console.log(action);
+        builder.addCase(loginUser.fulfilled, (state, action) => {
+            state.user.isLogged = true;
         })
     }
 })

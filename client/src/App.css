@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+.page {
+  display: flex;
+}
+
+.main {
+  width: 100%;
+  padding: 50px;
+  background: #f6f0e5;
+
+  h2 {
+      margin-bottom: 50px;
+  }
+}

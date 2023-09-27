@@ -1,13 +1,19 @@
+import { Outlet } from 'react-router-dom';
+import { Sidebar } from './components/sidebar/sidebar';
+import { ShowNotification } from './components/show-notification/show-notification';
+
 import './App.css';
-import { NotificationsProvider } from './providers/notification-provider';
 
 function App() {
   return (
-    <NotificationsProvider>
-      <div className="App">
-        Homepage
-      </div>
-    </NotificationsProvider>
+    <div className="page">
+        <Sidebar />
+        <main className="main">
+          <Outlet />
+        </main>
+
+        <ShowNotification />
+    </div>
   );
 }
 

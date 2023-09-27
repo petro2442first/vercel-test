@@ -1,5 +1,6 @@
 .login-page {
     display: flex;
+
     &__sidebar {
         height: 100vh;
         // background: #e5f7ff;
@@ -37,7 +38,7 @@
         margin-bottom: 20px;
     }
 
-    h3 {
+    &__header {
         margin-bottom: 20px;
     }
 

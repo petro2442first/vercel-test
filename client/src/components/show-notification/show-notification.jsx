@@ -10,6 +10,8 @@ export const ShowNotification = () => {
     const dispatch = useDispatch();
     const notifications = useSelector(selectNotifications);
 
+    console.log('notifications::', notifications);
+
     const notificationIconMap = {
         'success': () => <i className="notification-icon fa-solid fa-circle-check"></i>,
         'error': () => <i className="notification-icon fa-solid fa-circle-exclamation"></i>,

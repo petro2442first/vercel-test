@@ -1,30 +1,47 @@
 import { createBrowserRouter } from "react-router-dom";
 import { LoginPage, HomePage, CallsPage, ActiveCallsPage, DefaultPage, NewPaymentPage } from "../pages";
 import { PaymentsHistory } from "../pages/payments-history/payments-history";
+import App from "../App";
+import { ProtectedRoute } from "./protected-route";
 
 export const router = createBrowserRouter([
     {   
-        element: <DefaultPage />,
+        element: <App />,
         children: [
             {
                 path: "/",
-                element: <HomePage />
+                element: <ProtectedRoute />,
+                children: [{
+                    element: <HomePage />
+                }]
             },
             {
                 path: "/calls",
-                element: <CallsPage />,
+                element: <ProtectedRoute />,
+                children: [{
+                    element: <CallsPage />
+                }]
             },
             {
                 path: "/active-calls",
-                element: <ActiveCallsPage />,
+                element: <ProtectedRoute />,
+                children: [{
+                    element: <ActiveCallsPage />
+                }]
             },
             {
                 path: "/new-payment",
-                element: <NewPaymentPage />,
+                element: <ProtectedRoute />,
+                children: [{
+                    element: <NewPaymentPage />
+                }]
             },
             {
                 path: "/payments-history",
-                element: <PaymentsHistory />,
+                element: <ProtectedRoute />,
+                children: [{
+                    element: <PaymentsHistory />
+                }]
             },
         ]
     },

@@ -21,8 +21,8 @@ export const SignInForm = () => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <Input label="Login" name="username" type="text" placeholder="Login"/>
-            <Input label="Password" name="password" type="password" placeholder="Password"/>
+            <Input label="Login" name="username" type="text" placeholder="Login" defaultValue="1011111111"/>
+            <Input label="Password" name="password" type="password" placeholder="Password" defaultValue="ehF8km956PRf*G)!"/>
 
             <Button type="primari-pink">Log in</Button>
         </form>

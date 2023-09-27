@@ -13,7 +13,7 @@ import './index.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <ReduxProvider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <RouterProvider router={router}>
@@ -21,7 +21,7 @@ root.render(
         </RouterProvider>
       </PersistGate>
     </ReduxProvider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -5,11 +5,11 @@ import path from "path";
 import { fileURLToPath } from "url";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
+import session from "express-session";
 
 import tgBot from "./app/bot";
 import router from "./app/routes";
 import dbConfig from "./app/config/db.config";
-import PaymentController from "./app/controllers/payment.controller";
 
 const jsonParser = bodyParser.json();
 
@@ -24,6 +24,7 @@ const defaultPort = 8888;
 const PORT = process.env.PORT || defaultPort;
 
 app.use(cors());
+app.use(session({ secret: "rocketcall", cookie: { maxAge: 60000 } }));
 
 app.use(express.static(path.join(__dirname, "../client/build")));
 
@@ -42,8 +43,6 @@ async function start() {
     // });
     app.listen(PORT, () => {
       console.log(`App has been started on port ${PORT}...`);
-
-      PaymentController.getAddress();
     });
   } catch (err) {
     console.error("Database connect error: ", err.message);

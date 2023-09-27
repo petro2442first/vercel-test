@@ -1,33 +1,120 @@
 import dotenv from "dotenv";
-import BlockBee from "@blockbee/api";
+import { BlockBeeApi } from "../libs/blockbee-api";
+
+import Transaction from "../models/transaction.model";
 
 dotenv.config();
 
-const apiKey = process.env.BLOCKBEE_API_KEY;
-
-const bb = new BlockBee(
-  "trc20_usdt",
-  "",
-  "http://localhost:8812/transaction-info",
-  {},
-  {
-    post: 1,
-  },
-  apiKey
-);
-
-// console.log(apiKey);
 export default class PaymentController {
-  static async getAddress() {
-    const address = await bb.getAddress();
-    console.log("Payment address: ", address);
-    console.log(bb.checkLogs());
+  static async getPaymentDetails(req, res) {
+    const { value } = req.body;
+
+    value = parseFloat(value);
+    try {
+      const bb = await new BlockBeeApi();
+
+      const paymentDetails = await bb.getPaymentDetails(value);
+
+      res.status(200).json(paymentDetails);
+    } catch (err) {
+      res.status(500).json({
+        message: `Something went wrong, please, try again..
+          ${err.message}`,
+      });
+    }
+
+    // bb.checkLogs().then(console.log);
   }
 
-  static getTransactionInfo(req, res) {
-    const body = req.body;
+  static async confirmedCallback(req, res) {
+    const { pending } = req.body;
+    try {
+      if (!pending) {
+        const userId = req.user.userId;
+        const { uuid, value_coin, value_forwarded_coin } = req.body;
 
-    console.log(body);
+        const candidate = await Transaction.findOne({ uuid });
+
+        if (candidate) {
+          return res
+            .status(400)
+            .json({ message: "This transaction is already exists" });
+        }
+
+        const transaction = new Transaction({
+          uuid,
+          userId,
+          valueWithoutFee: value_coin,
+          valueWithFee: value_forwarded_coin,
+        });
+
+        await transaction.save();
+
+        // Mor Api
+
+        // --------
+
+        req.session.transaction = uuid;
+
+        res.status(200);
+      }
+    } catch (err) {
+      res.status(500).json({
+        message: `Something went wrong, please, try again..
+          ${err.message}`,
+      });
+    }
+  }
+
+  static async getTransactionInfo(req, res) {
+    if (req.session.transaction) {
+      try {
+        const transaction = await Transaction.findOne({
+          uuid: req.session.transaction,
+        });
+
+        if (!transaction) {
+          res.status(200).json({
+            status: "pending",
+          });
+        }
+
+        res.status(200).json({
+          status: "success",
+          transaction,
+        });
+      } catch (err) {
+        res.status(500).json({
+          message: `Something went wrong...
+          ${err.message}`,
+        });
+      }
+    }
+  }
+  static async getFee(req, res) {
+    try {
+      const fee = await BlockBeeApi.getFee();
+      res.status(200).json(fee);
+    } catch (err) {
+      res.status(500).json({
+        message: `Something went wrong...
+        ${err.message}`,
+      });
+    }
+  }
+  static async getValueWithFee(req, res) {
+    const { value } = req.body;
+
+    try {
+      const fee = await BlockBeeApi.getFee();
+      value = value * (1 + parseFloat(fee));
+      res.status(200).json(value);
+    } catch (err) {
+      res.status(500).json({
+        message: `Something went wrong...
+        ${err.message}`,
+      });
+    }
   }
 }
 

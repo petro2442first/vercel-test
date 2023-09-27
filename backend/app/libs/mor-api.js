@@ -24,10 +24,17 @@ export class MorApi {
             console.log('u', username)
             console.log('p', password)
             console.log('hash', hash)
+
+            console.warn('response::', response);
     
             parseXml(data, { trim: true }, (error, result) => {
                 const preparedObject = prepareParsedJson(result.action);
                 resolve(preparedObject);
+                // if (preparedObject.status === 'ok') {
+                    
+                // }
+
+                // reject(preparedObject);
             });
         })
     }

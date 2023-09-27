@@ -22,7 +22,9 @@ const app = express();
 const defaultPort = 8888;
 const PORT = process.env.PORT || defaultPort;
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://127.0.0.1:5500'
+}));
 
 app.use(express.static(path.join(__dirname, "../client/build")));
 
@@ -32,19 +34,23 @@ app.get("/", (request, response) => {
 
 app.use("/api", jsonParser, router);
 
-tgBot();
+// tgBot();
 
-async function start() {
-  try {
-    await mongoose.connect(dbConfig.db_connect, {
-      useUnifiedTopology: true,
-    });
-    app.listen(PORT, () =>
+// async function start() {
+//   try {
+//     await mongoose.connect(dbConfig.db_connect, {
+//       useUnifiedTopology: true,
+//     });
+//     app.listen(PORT, () =>
+//       console.log(`App has been started on port ${PORT}...`)
+//     );
+//   } catch (err) {
+//     console.error("Database connect error: ", err.message);
+//     process.exit(1);
+//   }
+// }
+// start();
+
+app.listen(PORT, () =>
       console.log(`App has been started on port ${PORT}...`)
     );
-  } catch (err) {
-    console.error("Database connect error: ", err.message);
-    process.exit(1);
-  }
-}
-start();

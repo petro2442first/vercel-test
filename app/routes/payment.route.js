@@ -14,7 +14,7 @@ router.post(
   PaymentController.getPaymentDetails
 );
 
-router.post(
+router.get(
   "/transaction-info",
   jsonParser,
   PaymentController.confirmedCallback

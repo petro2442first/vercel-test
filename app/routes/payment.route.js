@@ -1,5 +1,5 @@
 import { Router } from "express";
-import jsonParser from "body-parser";
+import bodyParser from "body-parser";
 
 import PaymentController from "../controllers/payment.controller";
 import { AuthMiddleware } from "../middleware/auth.middleware";

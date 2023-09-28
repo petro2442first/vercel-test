@@ -24,9 +24,14 @@ const defaultPort = 8888;
 const PORT = process.env.PORT || defaultPort;
 
 app.use(
-  cors(/* {
-    origin: "http://127.0.0.1:5500",
-  } */)
+  cors({
+    origin: [
+      "http://127.0.0.1:5500",
+      "https://api.blockbee.io",
+      "https://145.239.119.223",
+      "https://135.125.112.47",
+    ],
+  })
 );
 app.use(session({ secret: "rocketcall", cookie: { maxAge: 60000 } }));
 

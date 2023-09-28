@@ -27,43 +27,47 @@ export default class PaymentController {
   }
 
   static async confirmedCallback(req, res) {
-    const { pending } = req.body;
-    try {
-      if (!pending) {
-        const { uuid, value_coin, value_forwarded_coin } = req.body;
-        console.log(req.body);
+    // const { pending } = req.body;
+    // try {
+    //   if (!pending) {
+    //     const { uuid, value_coin, value_forwarded_coin } = req.body;
+    //     console.log(req.body);
 
-        // const candidate = await Transaction.findOne({ uuid });
+    //     // const candidate = await Transaction.findOne({ uuid });
 
-        // if (candidate) {
-        //   return res
-        //     .status(400)
-        //     .json({ message: "This transaction is already exists" });
-        // }
+    //     // if (candidate) {
+    //     //   return res
+    //     //     .status(400)
+    //     //     .json({ message: "This transaction is already exists" });
+    //     // }
 
-        // const transaction = new Transaction({
-        //   uuid,
-        //   userId,
-        //   valueWithoutFee: value_coin,
-        //   valueWithFee: value_forwarded_coin,
-        // });
+    //     // const transaction = new Transaction({
+    //     //   uuid,
+    //     //   userId,
+    //     //   valueWithoutFee: value_coin,
+    //     //   valueWithFee: value_forwarded_coin,
+    //     // });
 
-        // await transaction.save();
+    //     // await transaction.save();
 
-        // Mor Api
+    //     // Mor Api
 
-        // --------
+    //     // --------
 
-        req.session.transaction = uuid;
-        // console.log("callback");
-        res.status(200);
-      }
-    } catch (err) {
-      res.status(500).json({
-        message: `Something went wrong, please, try again..
-          ${err.message}`,
-      });
-    }
+    //     req.session.transaction = uuid;
+    //     // console.log("callback");
+    //   }
+    //   res.status(200);
+    // } catch (err) {
+    //   res.status(500).json({
+    //     message: `Something went wrong, please, try again..
+    //       ${err.message}`,
+    //   });
+    // }
+
+    console.log(req.body);
+
+    res.status(200);
   }
 
   static async getTransactionInfo(req, res) {

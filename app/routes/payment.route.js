@@ -1,10 +1,12 @@
 import { Router } from "express";
+import jsonParser from "body-parser";
 
 import PaymentController from "../controllers/payment.controller";
 import { AuthMiddleware } from "../middleware/auth.middleware";
 import { BlockBeeApi } from "../libs/blockbee-api";
 
 const router = Router();
+const jsonParser = bodyParser.json();
 
 router.post(
   "/payment-details",
@@ -12,7 +14,11 @@ router.post(
   PaymentController.getPaymentDetails
 );
 
-router.post("/transaction-info", PaymentController.confirmedCallback);
+router.post(
+  "/transaction-info",
+  jsonParser,
+  PaymentController.confirmedCallback
+);
 router.get("/check-transaction", PaymentController.getTransactionInfo);
 
 router.get("/get-fee", PaymentController.getFee);

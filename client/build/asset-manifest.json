@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.855b0002.css",
+    "main.js": "/static/js/main.05a6dd35.js",
+    "static/media/callcenter.gif": "/static/media/callcenter.4ac1073f9f463ccbbeff.gif",
+    "static/media/qrusdt.jpg": "/static/media/qrusdt.f61e5787199fa155089b.jpg",
+    "static/media/logo@2x.png": "/static/media/logo@2x.9987687a10a2937fa40f.png",
+    "index.html": "/index.html",
+    "main.855b0002.css.map": "/static/css/main.855b0002.css.map",
+    "main.05a6dd35.js.map": "/static/js/main.05a6dd35.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.855b0002.css",
+    "static/js/main.05a6dd35.js"
+  ]
+}

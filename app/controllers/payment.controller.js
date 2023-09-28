@@ -67,7 +67,7 @@ export default class PaymentController {
 
     console.log(req.body);
 
-    res.status(200);
+    res.status(200).send("*ok*");
   }
 
   static async getTransactionInfo(req, res) {

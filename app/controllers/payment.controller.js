@@ -55,7 +55,7 @@ export default class PaymentController {
         // --------
 
         req.session.transaction = uuid;
-
+        console.log("callback");
         res.status(200);
       }
     } catch (err) {

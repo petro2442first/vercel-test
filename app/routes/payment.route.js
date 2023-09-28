@@ -13,6 +13,7 @@ router.post(
 );
 
 router.post("/transaction-info", PaymentController.confirmedCallback);
+router.get("/check-transaction", PaymentController.getTransactionInfo);
 
 router.get("/get-fee", PaymentController.getFee);
 

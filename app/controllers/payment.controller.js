@@ -64,8 +64,9 @@ export default class PaymentController {
     //       ${err.message}`,
     //   });
     // }
-
-    console.log(req.body);
+    console.log("Params: ", req.params);
+    console.log("Query: ", req.query);
+    console.log("Req: ", req);
 
     res.status(200).send("*ok*");
   }

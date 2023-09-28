@@ -21,6 +21,7 @@ router.get("/get-value-with-fee", PaymentController.getValueWithFee);
 
 router.get("/test-payment", async (req, res) => {
   const bb = new BlockBeeApi(
+    1,
     "https://rocket-web-c7e333242ae0.herokuapp.com/api/payment/transaction-info"
   );
   const details = await bb.getPaymentDetails(1);

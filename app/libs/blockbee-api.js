@@ -10,12 +10,14 @@ const defaultCoin = "trc20_usdt";
 const callbackUrl = "http://localhost:8812/transaction-info";
 
 export class BlockBeeApi {
-  constructor(url = null) {
+  constructor(user_id, url = null) {
     this.bb = new BlockBee(
       defaultCoin,
       "",
       url ?? callbackUrl,
-      {},
+      {
+        userId: user_id,
+      },
       {
         post: 1,
       },
@@ -25,11 +27,11 @@ export class BlockBeeApi {
   async getPaymentDetails(value) {
     const address = await this.bb.getAddress();
 
+    value = value * (1 + fee / 100);
+
     const qrCode = await this.bb.getQrcode(value);
 
     const fee = await BlockBeeApi.getFee();
-
-    value = value * (1 + fee / 100);
 
     // console.log({
     //   address,

@@ -30,32 +30,32 @@ export default class PaymentController {
     const { pending } = req.body;
     try {
       if (!pending) {
-        const userId = req.user.userId;
         const { uuid, value_coin, value_forwarded_coin } = req.body;
+        console.log(req.body);
 
-        const candidate = await Transaction.findOne({ uuid });
+        // const candidate = await Transaction.findOne({ uuid });
 
-        if (candidate) {
-          return res
-            .status(400)
-            .json({ message: "This transaction is already exists" });
-        }
+        // if (candidate) {
+        //   return res
+        //     .status(400)
+        //     .json({ message: "This transaction is already exists" });
+        // }
 
-        const transaction = new Transaction({
-          uuid,
-          userId,
-          valueWithoutFee: value_coin,
-          valueWithFee: value_forwarded_coin,
-        });
+        // const transaction = new Transaction({
+        //   uuid,
+        //   userId,
+        //   valueWithoutFee: value_coin,
+        //   valueWithFee: value_forwarded_coin,
+        // });
 
-        await transaction.save();
+        // await transaction.save();
 
         // Mor Api
 
         // --------
 
         req.session.transaction = uuid;
-        console.log("callback");
+        // console.log("callback");
         res.status(200);
       }
     } catch (err) {
@@ -67,8 +67,8 @@ export default class PaymentController {
   }
 
   static async getTransactionInfo(req, res) {
-    if (req.session.transaction) {
-      try {
+    try {
+      if (req.session.transaction) {
         const transaction = await Transaction.findOne({
           uuid: req.session.transaction,
         });
@@ -83,12 +83,9 @@ export default class PaymentController {
           status: "success",
           transaction,
         });
-      } catch (err) {
-        res.status(500).json({
-          message: `Something went wrong...
-          ${err.message}`,
-        });
       }
+    } catch (err) {
+      res.status(500);
     }
   }
   static async getFee(req, res) {

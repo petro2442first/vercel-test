@@ -2,7 +2,7 @@ import { Telegraf, Markup } from "telegraf";
 import { message } from "telegraf/filters";
 import config from "../config/telegram.config";
 
-const bot = () => {
+export default () => {
   const bot = new Telegraf(config.token);
 
   const replyKeyboard = Markup.keyboard([
@@ -32,4 +32,3 @@ const bot = () => {
   process.once("SIGINT", () => bot.stop("SIGINT"));
   process.once("SIGTERM", () => bot.stop("SIGTERM"));
 };
-export default bot;

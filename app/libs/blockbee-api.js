@@ -27,6 +27,15 @@ export class BlockBeeApi {
 
     const qrCode = await this.bb.getQrcode(value);
 
+    const fee = await BlockBeeApi.getFee();
+
+    value = value * (1 + fee / 100);
+
+    // console.log({
+    //   address,
+    //   qrCode: qrCode.qr_code,
+    //   amount: value,
+    // });
     return {
       address,
       qrCode: qrCode.qr_code,
@@ -35,17 +44,23 @@ export class BlockBeeApi {
   }
   static async getFee() {
     try {
-      const query = new URLSearchParams({ prices: "0" }).toString();
+      let fee = 0;
+      const query = new URLSearchParams({ prices: "0" });
+      query.append("apikey", apiKey);
+      const resp = await fetch(
+        `https://api.blockbee.io/trc20/usdt/info/?${query.toString()}`,
+        {
+          method: "GET",
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          fee = data.fee_percent;
+        });
 
-      const resp = await fetch(`https://api.blockbee.io/info/?${query}`, {
-        method: "GET",
-      });
-
-      const data = await resp.json();
-
-      return data.btc.fee_percent;
+      return parseFloat(fee);
     } catch (err) {
-      return err;
+      return err.message;
     }
   }
 }

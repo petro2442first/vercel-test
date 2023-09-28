@@ -24,9 +24,9 @@ const defaultPort = 8888;
 const PORT = process.env.PORT || defaultPort;
 
 app.use(
-  cors({
+  cors(/* {
     origin: "http://127.0.0.1:5500",
-  })
+  } */)
 );
 app.use(session({ secret: "rocketcall", cookie: { maxAge: 60000 } }));
 
@@ -38,7 +38,7 @@ app.get("/", (request, response) => {
 
 app.use("/api", jsonParser, router);
 
-tgBot();
+// tgBot();
 
 async function start() {
   try {

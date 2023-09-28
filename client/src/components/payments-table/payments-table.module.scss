@@ -1,0 +1,75 @@
+.paymentsTable {
+    display: grid;
+    grid-template-columns: repeat(8, auto);
+    grid-row-gap: 5px;
+  
+    &__row {
+      display: contents;
+  
+      > div {
+          &:first-child {
+              border-top-left-radius: 5px;
+              border-bottom-left-radius: 5px;
+          }
+  
+          &:last-child {
+              border-top-right-radius: 5px;
+              border-bottom-right-radius: 5px;
+          }
+      }
+  
+      &.success {
+          > div {
+              background: #2bff0029;
+          }
+      }
+  
+      &.failed {
+          > div {
+              background: #ff000017;
+          }
+      }
+    }
+  
+    &__heading {
+      font-size: 14px;
+      color: #393939;
+      padding: 8px;
+    }
+  
+    &__item {
+      background: #ccc;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      font-size: 15px;
+    }
+  
+    &__playRecording, 
+    &__downloadRecording {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+  
+      i {
+          font-size: 14px;
+          color: #42929e;
+      }
+    }
+  
+    &__playRecording {
+      margin-right: 5px;
+      
+      i {
+          position: relative;
+          left: 1.5px;
+      }
+    }
+  }
+  

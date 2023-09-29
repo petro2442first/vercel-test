@@ -7,7 +7,7 @@ dotenv.config();
 const apiKey = process.env.BLOCKBEE_API_KEY;
 
 const defaultCoin = "trc20_usdt";
-const callbackUrl = "http://localhost:8812/transaction-info";
+const callbackUrl = "http://localhost:8812/api/payment/transaction-info";
 
 export class BlockBeeApi {
   constructor(user_id, url = null) {
@@ -19,7 +19,7 @@ export class BlockBeeApi {
         userId: user_id,
       },
       {
-        post: 1,
+        // post: 1,
       },
       apiKey
     );

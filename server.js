@@ -24,6 +24,12 @@ const defaultPort = 8888;
 const PORT = process.env.PORT || defaultPort;
 
 app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
+
+app.use(
   cors({
     origin: [
       "http://127.0.0.1:5500",

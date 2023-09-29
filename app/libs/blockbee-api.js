@@ -19,7 +19,7 @@ export class BlockBeeApi {
         userId: user_id,
       },
       {
-        // post: 1,
+        post: 0,
       },
       apiKey
     );

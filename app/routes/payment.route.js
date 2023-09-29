@@ -14,7 +14,7 @@ router.post(
   PaymentController.getPaymentDetails
 );
 
-router.get(
+router.post(
   "/transaction-info",
   jsonParser,
   PaymentController.confirmedCallback
@@ -31,6 +31,8 @@ router.get("/test-payment", async (req, res) => {
     "https://rocket-web-c7e333242ae0.herokuapp.com/api/payment/transaction-info"
   );
   const details = await bb.getPaymentDetails(1);
+  const params = bb.bb.bbParams;
+  console.log(params);
   // console.log(details);
   const html = /* html */ `
     <p>${details.address}</p>

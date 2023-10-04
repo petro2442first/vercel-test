@@ -1,22 +1,37 @@
 import { Schema, model, Types } from "mongoose";
 
 const schema = new Schema({
-  name: {
+  login: {
     type: String,
     required: true,
   },
-  lastname: {
+  morId: {
     type: String,
+    default: "",
   },
-  email: {
+  balance: {
+    type: Number,
+    default: 0,
+  },
+  isAuthorizedThroughTelegram: {
+    type: Boolean,
+    default: false,
+  },
+  telegramToken: {
     type: String,
-    required: true,
-    unique: true,
+    default: "",
   },
-  password: {
-    type: String,
-    required: true,
-  },
+  chats: [
+    {
+      type: String,
+    },
+  ],
+  transactions: [
+    {
+      type: Types.ObjectId,
+      ref: "Transaction",
+    },
+  ],
 });
 
 export default model("User", schema);

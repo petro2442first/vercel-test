@@ -6,6 +6,10 @@ const schema = new Schema({
     required: true,
     unique: true,
   },
+  hash: {
+    type: String,
+    required: true,
+  },
   userId: {
     type: Types.ObjectId,
     required: true,

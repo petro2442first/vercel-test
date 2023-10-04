@@ -2,6 +2,8 @@ import dotenv from "dotenv";
 import { BlockBeeApi } from "../libs/blockbee-api";
 
 import Transaction from "../models/transaction.model";
+import { MorApi } from "../libs/mor-api";
+import User from "../models/user.model";
 
 dotenv.config();
 
@@ -27,68 +29,89 @@ export default class PaymentController {
   }
 
   static async confirmedCallback(req, res) {
-    // const { pending } = req.body;
-    // try {
-    //   if (!pending) {
-    //     const { uuid, value_coin, value_forwarded_coin } = req.body;
-    //     console.log(req.body);
+    const { pending } = req.body;
+    try {
+      if (!pending) {
+        const { uuid, value_coin, value_forwarded_coin } = req.body;
+        const userId = req.query.userId;
+        const hash = req.query.hash;
 
-    //     // const candidate = await Transaction.findOne({ uuid });
+        const candidate = await Transaction.findOne({ uuid });
 
-    //     // if (candidate) {
-    //     //   return res
-    //     //     .status(400)
-    //     //     .json({ message: "This transaction is already exists" });
-    //     // }
+        if (candidate) {
+          return res.status(400).send("This transaction is already exists");
+        }
 
-    //     // const transaction = new Transaction({
-    //     //   uuid,
-    //     //   userId,
-    //     //   valueWithoutFee: value_coin,
-    //     //   valueWithFee: value_forwarded_coin,
-    //     // });
+        const transaction = new Transaction({
+          uuid,
+          hash,
+          userId,
+          valueWithoutFee: value_coin,
+          valueWithFee: value_forwarded_coin,
+        });
 
-    //     // await transaction.save();
+        await transaction.save();
 
-    //     // Mor Api
+        // Mor Api
 
-    //     // --------
+        const currentUser = await User.findById(userId);
 
-    //     req.session.transaction = uuid;
-    //     // console.log("callback");
-    //   }
-    //   res.status(200);
-    // } catch (err) {
-    //   res.status(500).json({
-    //     message: `Something went wrong, please, try again..
-    //       ${err.message}`,
-    //   });
-    // }
-    console.log("Params: ", req.params);
+        if (currentUser) {
+          currentUser.balance += value_forwarded_coin;
+
+          const morUserId = currentUser.morId;
+
+          // const morRequest = await MorApi.updateBalance({
+          //   userId: morUserId,
+          //   balance,
+          // });
+
+          const morRequest = await MorApi.createPayment({
+            userId: morUserId,
+            amount: value_forwarded_coin,
+            uuid,
+          });
+
+          if (morRequest.error) {
+            throw new Error(
+              `The balance has not been updated. ${response.error}`
+            );
+          }
+
+          await currentUser.save();
+        } else {
+          throw new Error("User not found");
+        }
+
+        // --------
+
+        req.session.transaction = uuid;
+      }
+      res.status(200).send("*ok*");
+    } catch (err) {
+      res.status(500).send(err.message);
+    }
+    console.log("Body: ", req.body);
     console.log("Query: ", req.query);
-    console.log("Req: ", req);
-
-    res.status(200).send("*ok*");
   }
 
   static async getTransactionInfo(req, res) {
     try {
-      if (req.session.transaction) {
-        const transaction = await Transaction.findOne({
-          uuid: req.session.transaction,
-        });
+      const { hash } = req.body;
+      const transaction = await Transaction.findOne({
+        hash,
+      }).exec();
 
-        if (!transaction) {
-          res.status(200).json({
-            status: "pending",
-          });
-        }
-
+      if (!transaction) {
         res.status(200).json({
-          status: "success",
-          transaction,
+          status: "pending",
         });
       }
+
+      res.status(200).json({
+        status: "success",
+        transaction,
+      });
     } catch (err) {
       res.status(500);
     }
@@ -108,8 +131,7 @@ export default class PaymentController {
     const { value } = req.body;
 
     try {
-      const fee = await BlockBeeApi.getFee();
-      value = value * (1 + parseFloat(fee));
+      value = await BlockBeeApi.getValueWithFullFee(value);
       res.status(200).json(value);
     } catch (err) {
       res.status(500).json({

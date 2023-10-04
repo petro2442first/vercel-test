@@ -26,18 +26,20 @@ router.get("/get-fee", PaymentController.getFee);
 router.get("/get-value-with-fee", PaymentController.getValueWithFee);
 
 router.get("/test-payment", async (req, res) => {
-  const bb = new BlockBeeApi(
-    1,
-    "https://rocket-web-c7e333242ae0.herokuapp.com/api/payment/transaction-info"
-  );
-  const details = await bb.getPaymentDetails(1);
-  const params = bb.bb.bbParams;
-  console.log(params);
+  const bb = new BlockBeeApi({
+    userId: 2,
+    url: "https://rocket-web-c7e333242ae0.herokuapp.com/api/payment/transaction-info",
+  });
+  const details = await bb.getPaymentDetails(4);
+  // const params = bb.bb.bbParams;
+  // console.log(params);
   // console.log(details);
+
   const html = /* html */ `
     <p>${details.address}</p>
     <img src="data:image/png;base64,${details.qrCode}">
-    <p>Amount: ${details.amount} USDT TRC-20</p>
+    <p>Amount: ${details.amount.withFee} USDT TRC-20</p>
+    <p>Amount without fee: ${details.amount.withoutFee} USDT TRC-20</p>
   `;
   res.send(html);
 });

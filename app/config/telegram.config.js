@@ -5,6 +5,8 @@ export default {
       balance: "Баланс",
       deposit: "Пополнение",
       statistics: "Просмотреть статистику",
+      authorization: 'Авторизация',
+      logout: 'Вийти'
     },
     responses: {
       balance: (value, currency = "$") => `Ваш баланс: ${value}${currency}`,

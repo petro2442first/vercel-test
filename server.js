@@ -6,10 +6,11 @@ import { fileURLToPath } from "url";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import session from "express-session";
+import os from "os";
 
 import tgBot from "./app/bot";
-import router from "./app/routes";
-import dbConfig from "./app/config/db.config";
+import router from "./app/routes/index.js";
+import dbConfig from "./app/config/db.config.js";
 
 const jsonParser = bodyParser.json();
 
@@ -49,13 +50,14 @@ app.get("/", (request, response) => {
 
 app.use("/api", jsonParser, router);
 
-// tgBot();
-
 async function start() {
   try {
     await mongoose.connect(dbConfig.db_connect, {
       useUnifiedTopology: true,
     });
+
+    tgBot();
+
     app.listen(PORT, () => {
       console.log(`App has been started on port ${PORT}...`);
     });

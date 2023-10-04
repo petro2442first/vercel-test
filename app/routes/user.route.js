@@ -9,7 +9,9 @@ router.route("/login").post(async function (request, response) {
   } = request;
   const morRequest = await MorApi.login({ username, password });
 
-  console.log('{ username, password }', request.body);
+  console.log("{ username, password }", request.body);
+
+  request.session.morUserId = request.body.action.user_id;
 
   return response.send(morRequest);
 });
@@ -30,6 +32,14 @@ router.route("/quickstat").post(async function (request, response) {
   const morRequest = await MorApi.getQuickStat({ username });
 
   return response.send(morRequest);
+});
+
+router.get("/get-balance/:username", async (req, res) => {
+  const username = req.params.username;
+
+  const morRequest = await MorApi.getBalance({ username });
+
+  res.status(200).json(morRequest);
 });
 
 export default router;

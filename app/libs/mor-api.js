@@ -138,6 +138,9 @@ export class MorApi {
         u: "admin",
         username: username,
       },
+      paramsForHash: {
+        username,
+      },
     });
 
     if (req.page?.error) {

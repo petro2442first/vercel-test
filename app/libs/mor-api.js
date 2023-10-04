@@ -36,12 +36,16 @@ const request = ({
     url.searchParams.append("hash", hash);
 
     console.log(url);
-
-    const response = await fetch(url, {
+    let data;
+    /* const response = */ await fetch(url, {
       method,
       headers,
-    });
-    const data = await response.text();
+    })
+      .then((res) => {
+        data = res.text();
+      })
+      .catch(console.log);
+    // const data = await response.text();
 
     parseXml(data, { trim: true }, (error, result) => {
       const preparedObject = prepareParsedJson(result);

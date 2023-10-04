@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import session from "express-session";
 import os from "os";
+import fetch from "node-fetch";
 
 import tgBot from "./app/bot";
 import router from "./app/routes/index.js";
@@ -41,6 +42,12 @@ app.use(
   })
 );
 app.use(session({ secret: "rocketcall", cookie: { maxAge: 60000 } }));
+
+app.get("/test-mor", async (req, res) => {
+  const request = await fetch("http://116.203.41.231/billing/api/");
+
+  res.send(request);
+});
 
 app.use(express.static(path.join(__dirname, "/client/build")));
 

@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import fetch from "node-fetch";
 import sha1 from "sha1";
 import { parseString as parseXml } from "xml2js";
-import { prepareParsedJson } from "../helpers/prepare-parsed-json-after-xml";
+import { prepareParsedJson } from "../helpers/prepare-parsed-json-after-xml.js";
 
 dotenv.config();
 

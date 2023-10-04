@@ -1,5 +1,5 @@
 import express from "express";
-import { MorApi } from "../libs/mor-api";
+import { MorApi } from "../libs/mor-api.js";
 
 const router = express.Router();
 

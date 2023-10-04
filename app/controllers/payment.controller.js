@@ -1,9 +1,9 @@
 import dotenv from "dotenv";
-import { BlockBeeApi } from "../libs/blockbee-api";
+import { BlockBeeApi } from "../libs/blockbee-api.js";
 
-import Transaction from "../models/transaction.model";
-import { MorApi } from "../libs/mor-api";
-import User from "../models/user.model";
+import Transaction from "../models/transaction.model.js";
+import { MorApi } from "../libs/mor-api.js";
+import User from "../models/user.model.js";
 
 dotenv.config();
 

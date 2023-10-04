@@ -1,10 +1,10 @@
 import { Telegraf, Markup, session, Context } from "telegraf";
 
-import config from "../config/telegram.config";
-import User from "../models/user.model";
-import { MorApi } from "../libs/mor-api";
-import { BlockBeeApi } from "../libs/blockbee-api";
-import Transaction from "../models/transaction.model";
+import config from "../config/telegram.config.js";
+import User from "../models/user.model.js";
+import { MorApi } from "../libs/mor-api.js";
+import { BlockBeeApi } from "../libs/blockbee-api.js";
+import Transaction from "../models/transaction.model.js";
 
 export default () => {
   class TgUser {

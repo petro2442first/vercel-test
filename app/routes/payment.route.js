@@ -1,9 +1,9 @@
 import { Router } from "express";
 import bodyParser from "body-parser";
 
-import PaymentController from "../controllers/payment.controller";
-import { AuthMiddleware } from "../middleware/auth.middleware";
-import { BlockBeeApi } from "../libs/blockbee-api";
+import PaymentController from "../controllers/payment.controller.js";
+import { AuthMiddleware } from "../middleware/auth.middleware.js";
+import { BlockBeeApi } from "../libs/blockbee-api.js";
 
 const router = Router();
 const jsonParser = bodyParser.json();

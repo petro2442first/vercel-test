@@ -72,7 +72,7 @@ export default () => {
     const delay = 10000;
 
     (async function check() {
-      const transaction = Transaction.findOne({
+      const transaction = await Transaction.findOne({
         hash: TgUser.transactionHash,
       }).exec();
       if (transaction) {

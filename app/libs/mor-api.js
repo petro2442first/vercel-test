@@ -122,14 +122,26 @@ export class MorApi {
     });
   }
 
-  static getBalance({ username }) {
-    return request({
+  static async getBalance({ username }) {
+    const req = await request({
       url: "user_balance_get",
       method: "POST",
       params: {
         u: username,
       },
     });
+
+    if (req.page.error) {
+      return {
+        error: req.page.error,
+      };
+    } else if (req.status.error) {
+      return {
+        error: req.status.error,
+      };
+    }
+
+    return req.page.balance;
   }
   static async updateBalance({ userId, balance }) {
     // transaction add!!!!

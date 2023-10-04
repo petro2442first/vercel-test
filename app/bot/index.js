@@ -189,10 +189,12 @@ export default () => {
   // GET BALANCE
   bot.hears(config.text.buttons.balance, authMiddleware, async (ctx) => {
     const user = await User.findById(TgUser.id);
+
+    const balance = await MorApi.getBalance({ username: user.login });
     if (user) {
       console.log(user);
       await ctx.reply(
-        config.text.responses.balance(user.balance),
+        config.text.responses.balance(balance),
         authorizedKeyboard
       );
     }

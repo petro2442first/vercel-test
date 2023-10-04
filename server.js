@@ -63,7 +63,7 @@ async function start() {
       useUnifiedTopology: true,
     });
 
-    // tgBot();
+    tgBot();
 
     app.listen(PORT, () => {
       console.log(`App has been started on port ${PORT}...`);

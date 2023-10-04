@@ -13,19 +13,26 @@ const apiUrl = (endpoint) =>
 
 const request = ({
   url,
-  params = {},
-  body = {},
+  params,
+  paramsForHash = null,
   method = "GET",
   headers = {},
 }) =>
   new Promise(async (resolve, reject) => {
     url = apiUrl(url);
 
-    const hash = sha1("".concat(...Object.entries(params), apiKey));
-    let stringForHash = "";
-    for (const [key, value] in Object.entries(params)) {
-      url.searchParams.append(key, value);
+    let hash;
+
+    if (paramsForHash) {
+      hash = sha1("".concat(...Object.values(paramsForHash), apiKey));
+    } else {
+      hash = sha1("".concat(...Object.values(params), apiKey));
     }
+
+    Object.entries(params).forEach((param) => {
+      url.searchParams.append(param[0], param[1]);
+    });
+
     url.searchParams.append("hash", hash);
 
     console.log(url);
@@ -33,10 +40,6 @@ const request = ({
     const response = await fetch(url, {
       method,
       headers,
-      body: JSON.stringify({
-        u: params.username,
-        hash,
-      }),
     });
     const data = await response.text();
 
@@ -123,19 +126,21 @@ export class MorApi {
   }
 
   static async getBalance({ username }) {
+    console.log(username);
     const req = await request({
       url: "user_balance_get",
       method: "POST",
       params: {
-        u: username,
+        // u: username,
+        username: username,
       },
     });
 
-    if (req.page.error) {
+    if (req.page?.error) {
       return {
         error: req.page.error,
       };
-    } else if (req.status.error) {
+    } else if (req?.status?.error) {
       return {
         error: req.status.error,
       };
@@ -164,32 +169,31 @@ export class MorApi {
     }
     return req.page.page;
   }
-  static async createPayment({ userId, amount, uuid, hash }) {
-    const userDetails = await request({ userId });
-    if (userDetails.error) {
-      return {
-        error: userDetails.error,
-      };
-    }
-
-    const username = userDetails.other_details.username;
+  static async createPayment({ userId, amount, username, uuid, hash }) {
     const req = await request({
       url: "payment_create",
       method: "POST",
       params: {
+        u: "admin",
         user_id: userId,
-        amount,
         p_currency: "USD",
-        transaction: uuid,
-        comments_for_user: uuid,
-        u: username,
+        amount,
+        // transaction: uuid,
+        // comments_for_user: uuid,
+      },
+      paramsForHash: {
+        user_id: userId,
+        p_currency: "USD",
+        amount,
+        // transaction: uuid,
+        // comments_for_user: uuid,
       },
     });
 
     if (req.error) {
       return { error: req.error };
     }
-    return req.page.response;
+    return req;
   }
   static async getUserDetails({ userId }) {
     const req = await request({

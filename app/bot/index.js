@@ -158,7 +158,13 @@ export default () => {
   bot.hears(/^\d+$/, async (ctx) => {
     if (ctx.session && ctx.session.depositInit) {
       const paymentValue = Number(ctx.update.message.text);
-
+      // const user = await User.findById(TgUser.id);
+      // const morRequest = await MorApi.createPayment({
+      //   userId: user.morId,
+      //   username: user.login,
+      //   amount: paymentValue,
+      // });
+      // console.log(morRequest);
       const bb = new BlockBeeApi(
         TgUser.id,
         "https://rocket-web-c7e333242ae0.herokuapp.com/api/payment/transaction-info"
@@ -192,15 +198,13 @@ export default () => {
 
     const balance = await MorApi.getBalance({ username: user.login });
     if (user) {
-      console.log(user);
       await ctx.reply(
         config.text.responses.balance(balance),
         authorizedKeyboard
       );
     }
     const chat = await ctx.getChat();
-    console.log("1:", ctx.update.message.chat);
-    console.log("2:", chat.id);
+
     TgUser.checkAuth(chat.id);
   });
   // --------------

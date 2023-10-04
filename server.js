@@ -9,7 +9,7 @@ import session from "express-session";
 import os from "os";
 import fetch from "node-fetch";
 
-import tgBot from "./app/bot";
+import tgBot from "./app/bot/index.js";
 import router from "./app/routes/index.js";
 import dbConfig from "./app/config/db.config.js";
 
@@ -63,7 +63,7 @@ async function start() {
       useUnifiedTopology: true,
     });
 
-    // tgBot();
+    tgBot();
 
     app.listen(PORT, () => {
       console.log(`App has been started on port ${PORT}...`);

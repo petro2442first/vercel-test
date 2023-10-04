@@ -135,7 +135,7 @@ export class MorApi {
       url: "user_balance_get",
       method: "POST",
       params: {
-        // u: username,
+        u: "admin",
         username: username,
       },
     });
